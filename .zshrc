@@ -81,6 +81,7 @@ plugins=(
 	git
 	extract
 	zsh-autosuggestions
+	asdf
 )
 
 source $ZSH/oh-my-zsh.sh
