@@ -9,7 +9,10 @@ call plug#begin("~/.vim/plugged")
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'lukas-reineke/indent-blankline.nvim'
+	Plug 'petertriho/nvim-scrollbar'
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 """ CONFIGURATIONS
@@ -55,12 +58,32 @@ let g:fzf_action = {
 " requires sudo apt-get install silversearcher-ag
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
+" vim-airline/vim-airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme='minimalist'
+
 "" dracula/vim
 if (has("termguicolors"))
 	set termguicolors
 endif
 syntax enable
 colorscheme dracula
+
+"" neoclide/coc.nvim
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+set signcolumn=yes
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 "" scrooloose/nerdtree
 let g:NERDTreeShowHidden = 1
